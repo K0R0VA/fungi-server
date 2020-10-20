@@ -27,15 +27,15 @@ use dotenv::dotenv;
 use std::env;
 
 async fn registration (state : Data<AppState>, sign_up : Json<SignUp>) -> impl Responder {
-    get_responce::<SignUp, Client>(state, sign_up).await.unwrap()
+    get_responce(state, sign_up).await.unwrap()
 }
 
 async fn login (state : Data<AppState>, sign_up : Json<SignIn>) -> impl Responder {
-    get_responce::<SignIn, Client>(state, sign_up).await.unwrap()
+    get_responce(state, sign_up).await.unwrap()
 }
 
 async fn projects ( state : Data<AppState>, client : Json<Client>) -> impl Responder {
-    get_responce::<Client, Vec<Project>>(state, client).await.unwrap()
+    get_responce(state, client).await.unwrap()
 }
 
 
