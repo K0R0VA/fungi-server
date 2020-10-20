@@ -1,4 +1,3 @@
-use crate::model::{Client, Project};
 use crate::schema::{client, project};
 
 use actix::{Actor, SyncContext, Handler, Message, };
@@ -7,6 +6,7 @@ use actix::MailboxError;
 use diesel::{prelude::*, r2d2::{ConnectionManager, Pool}, PgConnection};
 use serde::Deserialize;
 use uuid::Uuid;
+use crate::model::{ client::Client, project::Project };
 
 
 pub struct PgActor (pub Pool<ConnectionManager<PgConnection>>);
@@ -33,7 +33,7 @@ impl Handler<SignUp> for PgActor {
 
     fn handle(&mut self, msg: SignUp, _: &mut Self::Context) -> Self::Result {
         let conn : &PgConnection = &self.0.get().unwrap();
-        let client : Client = Client::new(msg.username, msg.email, msg.password);
+        let client : Client = Client::new(&msg.username, &msg.email, &msg.password);
         let result : Client = diesel::insert_into(client::table)
             .values::<Client>(client)
             .get_result(conn)
@@ -93,7 +93,7 @@ impl Handler<NewProject> for PgActor {
 
     fn handle(&mut self, msg: NewProject, _: &mut Self::Context) -> Self::Result {
         let conn : &PgConnection = &self.0.get().unwrap();
-        let project = Project::new(msg.name_project, msg.id_client);
+        let project = Project::new(&msg.name_project, msg.id_client);
         let result = diesel::insert_into(project::table)
             .values(project)
             .get_result(conn)
