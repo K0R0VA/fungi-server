@@ -1,18 +1,18 @@
-use crate::schema::{client, project};
+use crate::model::schema::{client, project};
+use crate::model::{ client::Client, project::Project };
 
 use actix::{Actor, SyncContext, Handler, Message, };
 use actix::MailboxError;
-
 use diesel::{prelude::*, r2d2::{ConnectionManager, Pool}, PgConnection};
 use serde::Deserialize;
 use uuid::Uuid;
-use crate::model::{ client::Client, project::Project };
 
 
 pub struct PgActor (pub Pool<ConnectionManager<PgConnection>>);
 
 #[derive(Debug, Deserialize)]
 pub struct SignUp {
+    //#[validate(length(min = 6))]
     pub username : String,
     pub email : String,
     pub password : String

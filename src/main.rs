@@ -1,19 +1,21 @@
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
+extern crate validator_derive;
 
-mod schema;
 mod model;
 mod actor;
-mod route;
+mod routes;
 mod utils;
+mod middleware;
+pub mod app_state;
 
 use crate::actor::db::PgActor;
-use crate::model::app_state::AppState;
-use crate::actor::db::{SignUp, SignIn};
-use crate::route::{ sign_in::login, sign_up::registration, projects::projects} ;
+use app_state::AppState;
+use crate::routes::{sign_in::login, sign_up::registration, projects::projects} ;
 
-use actix_web::{App, Responder, HttpServer};
+use actix_web::{App, HttpServer};
+use actix_web::middleware::Logger;
 use actix_web::web;
 use actix::SyncArbiter;
 use diesel::{r2d2::ConnectionManager, PgConnection};
@@ -21,7 +23,7 @@ use dotenv::dotenv;
 
 
 use std::env;
-
+use crate::middleware::auth_service::AuthService;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -35,10 +37,11 @@ async fn main() -> std::io::Result<()> {
     let pg_addr = SyncArbiter::start(5, move || PgActor(pool.clone()));
     HttpServer::new( move || App::new()
                                 .data(AppState { pg : pg_addr.clone() })
+                                .wrap(Logger::default())
+                                //.wrap()
                                 .route("signup/", web::post().to(registration) )
                                 .route("signin/", web::get().to(login))
                                 .route("projects/", web::post().to(projects))
-                                //.route("", mut route: Route)
     )
         .bind(config_url)?
         .run()
