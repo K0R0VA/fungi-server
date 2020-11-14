@@ -12,6 +12,8 @@ use crate::model::client::{NewUser, SignIn};
 use crate::model::project::NewProject;
 use crate::model::schema::client::columns::password;
 use failure::Fail;
+use futures::{TryFutureExt, AsyncRead, Future};
+use futures::task::Poll;
 
 pub struct PgActor<'a> {
     pool :Pool<ConnectionManager<PgConnection>>,
@@ -24,9 +26,9 @@ impl<'a> PgActor<'a> {
             pool,
             crypto
         }
-
     }
 }
+
 
 
 impl Actor for PgActor<'static> {
@@ -35,12 +37,12 @@ impl Actor for PgActor<'static> {
 
 
 impl Handler<NewUser> for PgActor<'static> {
-    type Result = Result<Client, MailboxError>;
+    type Result = Poll<Result<Client, MailboxError>>;
 
     fn handle(&mut self, msg: NewUser, _: &mut Self::Context) -> Self::Result {
         let conn : &PgConnection = &self.pool.get().unwrap();
-        let hash_pass = self.crypto.hash_password(msg.password);
-        let client : Client = Client::new(&msg.username, &msg.email, &hash_pass);
+        let hash_pass = self.crypto.hash_password(&*msg.password);
+        let client : Client = Client::new(&msg.username, &msg.email,hash_pass);
         let result : Client = diesel::insert_into(client::table)
             .values::<Client>(client)
             .get_result(conn)
