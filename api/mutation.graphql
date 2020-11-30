@@ -1,0 +1,8 @@
+mutation creatClient($input: InputNewUser!) {
+    createClient(input: $input) {
+        id
+        name,
+        email,
+        password
+    }
+}

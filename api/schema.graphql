@@ -1,0 +1,38 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Client {
+    email: String!
+    id: Uuid!
+    name: String!
+    password: String!
+}
+
+type Mutation {
+    createClient(input: InputNewUser!): Client!
+}
+
+type Query {
+    apiVersion: String!
+    loginClient(client: SignIn!): Client!
+}
+
+input InputNewUser {
+    email: String!
+    password: String!
+    passwordCheck: String!
+    username: String!
+}
+
+input SignIn {
+    email: String!
+    password: String!
+}
+
+
+"Uuid"
+scalar Uuid

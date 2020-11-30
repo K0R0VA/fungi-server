@@ -3,40 +3,50 @@
 extern crate diesel;
 extern crate dotenv;
 extern crate validator;
-extern crate lazy_static;
+extern crate juniper;
 
 mod model;
 mod actor;
-mod routes;
-mod utils;
 mod middleware;
 mod application;
 
-use crate::actor::db::PgActor;
-use crate::routes::{sign_in::login, sign_up::registration, projects::projects} ;
+use crate::application::database::DatabaseManager;
+use crate::middleware::graphql::graph_config;
 
-use actix_web::{App, HttpServer};
-use actix_web::middleware::Logger;
-use actix_web::web;
-use lazy_static::lazy_static;
+use actix_web::{App, HttpServer, Result, web, guard, HttpResponse};
+use actix_files as fs;
+use std::env;
+use dotenv::dotenv;
+use application::descriptor::Descriptor;
 
-use crate::application::app_state::AppState;
-use crate::application::configuration::Config;
-
-lazy_static! {
-    static ref CONFIG : Config = Config::new();
- }
+async fn index() -> Result<fs::NamedFile> {
+    Ok(fs::NamedFile::open("static/index.html")?)
+}
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+    let db_addr = env::var("DATABASE_URL").expect("DATABASE_URL is not set");
+    let server_addr = env::var("CONFIGURATION_URL").expect("CONFIGURATION_URL is not set");
+    let secret_key = env::var("SECRET_KEY").expect("SECRET_KEY is not set");
+    let database = DatabaseManager::new(&*db_addr);
+    let descriptor = Descriptor::new(secret_key);
     HttpServer::new( move || App::new()
-                                .data(AppState::new(CONFIG.database(), CONFIG.crypto_service()))
-                                .wrap(Logger::default())
-                                .service(projects)
-                                .service(registration)
-                                .service(login)
+                                .data(database.clone())
+                                .data(descriptor.clone())
+                                .service(fs::Files::new("/static", "static/"))
+                                .default_service(
+                                    web::resource("")
+                                        .route(web::get().to(index))
+                                        .route(
+                                            web::route()
+                                                .guard(guard::Not(guard::Get()))
+                                                .to(|| HttpResponse::MethodNotAllowed()),
+                                        )
+                                )
+                                .configure(graph_config)
     )
-        .bind(CONFIG.server())?
+        .bind(server_addr)?
         .run()
         .await
 }

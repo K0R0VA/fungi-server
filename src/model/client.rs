@@ -1,13 +1,14 @@
 use uuid::Uuid;
 use actix::{Message, MailboxError};
 use serde::{Deserialize, Serialize};
-use diesel::{Queryable, Insertable, Identifiable};
+use diesel::{Queryable, Insertable, Identifiable, QueryResult};
 use validator::Validate;
+use juniper::{GraphQLObject, GraphQLInputObject};
 
 use crate::model::schema::client;
 use crate::model::project::Project;
 
-#[derive(Debug, Clone, Serialize, Deserialize, Queryable, Insertable, Identifiable)]
+#[derive(Debug, Clone, Serialize, Deserialize, Queryable, Insertable, Identifiable, GraphQLObject)]
 #[table_name="client"]
 pub struct Client {
     pub id : Uuid,
@@ -37,12 +38,9 @@ impl PartialEq for Client {
     }
 }
 
-pub struct ClientId {
 
-}
-
-#[derive(Debug, Deserialize, Validate)]
-pub struct NewUser {
+#[derive(Debug, Deserialize, Validate, GraphQLInputObject)]
+pub struct InputNewUser {
     #[validate(length(min = 6))]
     pub username : String,
     #[validate(email)]
@@ -53,11 +51,29 @@ pub struct NewUser {
     pub password_check : String
 }
 
-impl Message for NewUser {
-    type Result = Result<Client, MailboxError>;
+#[derive(Debug, Deserialize)]
+pub struct NewUser {
+    pub username : String,
+    pub email : String,
+    pub password : String,
 }
 
-#[derive(Deserialize, Validate)]
+impl NewUser {
+    pub(crate) fn new(input: (&str, &str), hashed_pass: &str) -> Self {
+        NewUser {
+            username: input.0.to_owned(),
+            email: input.1.to_owned(),
+            password: hashed_pass.to_owned()
+        }
+    }
+}
+
+
+impl Message for NewUser {
+    type Result = QueryResult<Client>;
+}
+
+#[derive(Deserialize, Validate, GraphQLInputObject)]
 pub struct SignIn {
     #[validate(email)]
     pub email : String,
@@ -65,5 +81,12 @@ pub struct SignIn {
 }
 
 impl Message for SignIn {
-    type Result = Result<Client, MailboxError>;
+    type Result = QueryResult<Client>;
+}
+
+pub struct UserIdForProject(pub Uuid);
+
+
+impl Message for UserIdForProject {
+    type Result = QueryResult<Vec<Project>>;
 }

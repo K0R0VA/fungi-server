@@ -1,6 +1,6 @@
 create table Animation (
   id uuid primary key,
-  mongo_id int not null,
+  mongo_id int not null unique,
   name varchar not null,
   like_count int not null default 0,
   creation_data date not null,
