@@ -28,43 +28,43 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c1fb064-313c-4722-8a81-71092b5150ab" name="Default Changelist" comment="start move to tokio-postgres">
-      <change afterPath="$PROJECT_DIR$/api/.graphqlconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/mutation.graphql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/schema.graphql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actor/postgres.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/database.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/application/descriptor.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/middleware/graphql/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/middleware/graphql/mutation.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/middleware/graphql/query.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/middleware/graphql/schema.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/mod.rs" afterDir="false" />
+    <list default="true" id="7c1fb064-313c-4722-8a81-71092b5150ab" name="Default Changelist" comment="graphql">
+      <change afterPath="$PROJECT_DIR$/deny.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/2020-12-03-170936_comment/down.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/2020-12-03-170936_comment/up.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/2020-12-03-173619_Like/down.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/2020-12-03-173619_Like/up.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/actor/mongo.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/application/config.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middleware/graphql/subscription.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/mongo/get_project.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/mongo/input_project.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/mongo/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/postgre/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/postgre/plugin.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/fungi-server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fungi-server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diesel.toml" beforeDir="false" afterPath="$PROJECT_DIR$/diesel.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/2020-10-20-122429_create_user/down.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/2020-10-20-122429_create_user/down.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrations/2020-10-20-122429_create_user/up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/2020-10-20-122429_create_user/up.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrations/2020-10-20-132134_create_project/up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/2020-10-20-132134_create_project/up.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/2020-10-20-133249_create_animation/down.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/2020-10-20-133249_create_animation/down.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/migrations/2020-10-20-133249_create_animation/up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/2020-10-20-133249_create_animation/up.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actor/db.rs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actor/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/actor/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actor/session.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actor/ws.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/app_state.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/configuration.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actor/postgres.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/actor/postgres.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/database.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/database.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/application/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/crypto_service.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/middleware/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/client.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/client.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/project.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/project.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/projects.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/sign_in.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/sign_up.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/responce.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/graphql/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/graphql/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/graphql/mutation.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/graphql/mutation.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/graphql/query.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/graphql/query.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/graphql/schema.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/graphql/schema.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/client.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/postgre/client.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/project.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/postgre/project.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/schema.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/postgre/schema.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema.rs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,19 +132,14 @@
       <recent name="$PROJECT_DIR$/static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/model/postgre" />
       <recent name="$PROJECT_DIR$/migrations/2020-10-20-133249_create_animation" />
       <recent name="$PROJECT_DIR$/src/middleware/graphql" />
-      <recent name="$PROJECT_DIR$/src/application" />
-      <recent name="$PROJECT_DIR$/static" />
-      <recent name="$PROJECT_DIR$/static/dist" />
     </key>
   </component>
   <component name="RunManager" selected="Cargo.Run">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Expand server::middleware::graphql::mutation" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
       <option name="channel" value="DEFAULT" />
       <option name="command" value="expand --bin server --color=always --theme=GitHub --tests middleware::graphql::mutation" />
@@ -179,6 +174,11 @@
       <envs />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="servo" type="TypeScriptProgramRunner" factoryName="TypeScript">
@@ -238,7 +238,13 @@
       <workItem from="1606311872483" duration="18019000" />
       <workItem from="1606415759627" duration="27552000" />
       <workItem from="1606482068216" duration="34701000" />
-      <workItem from="1606660513166" duration="16096000" />
+      <workItem from="1606660513166" duration="28918000" />
+      <workItem from="1606787222921" duration="39922000" />
+      <workItem from="1607003377736" duration="7717000" />
+      <workItem from="1607180005128" duration="1965000" />
+      <workItem from="1607378768037" duration="9029000" />
+      <workItem from="1607523388183" duration="10590000" />
+      <workItem from="1608495390309" duration="13852000" />
     </task>
     <task id="LOCAL-00001" summary="update table + arch app">
       <created>1603221347066</created>
@@ -275,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605398302867</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="graphql">
+      <created>1606698052647</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1606698052647</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,90 +314,15 @@
     <MESSAGE value="add dependencies + start adding middleware" />
     <MESSAGE value="login and registration works" />
     <MESSAGE value="start move to tokio-postgres" />
-    <option name="LAST_COMMIT_MESSAGE" value="start move to tokio-postgres" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="1755" y="108" width="800" height="710" key="#Plugins" timestamp="1605395172701">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="1755" y="108" width="800" height="710" key="#Plugins/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1605395172701" />
-    <state x="24" y="316" width="1382" height="294" key="#SQL_Dialects" timestamp="1603199482984">
-      <screen x="0" y="28" width="1440" height="872" />
-    </state>
-    <state x="24" y="316" width="1382" height="294" key="#SQL_Dialects/0.28.1440.872@0.28.1440.872" timestamp="1603199482984" />
-    <state x="1837" y="28" width="800" height="868" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606621103705">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="406" y="136" width="800" height="764" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.28.1440.872@0.28.1440.872" timestamp="1603815112145" />
-    <state x="1837" y="28" width="800" height="868" key="#com.intellij.execution.impl.EditConfigurationsDialog/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606621103705" />
-    <state x="420" y="257" width="589" height="411" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1603221197721">
-      <screen x="0" y="28" width="1440" height="872" />
-    </state>
-    <state x="420" y="257" width="589" height="411" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1440.872@0.28.1440.872" timestamp="1603221197721" />
-    <state x="1968" y="160" width="374" height="560" key="#com.intellij.ide.util.MemberChooser" timestamp="1606482258878">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="528" y="183" width="374" height="560" key="#com.intellij.ide.util.MemberChooser/0.28.1440.872@0.28.1440.872" timestamp="1603268483847" />
-    <state x="1968" y="160" width="374" height="560" key="#com.intellij.ide.util.MemberChooser/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606482258878" />
-    <state x="1893" y="189" width="524" height="503" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606586022367">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="453" y="211" width="524" height="503" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.28.1440.872@0.28.1440.872" timestamp="1603227271649" />
-    <state x="1893" y="189" width="524" height="503" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606586022367" />
-    <state x="1963" y="180" width="424" height="482" key="FileChooserDialogImpl" timestamp="1606441439459">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="523" y="202" width="424" height="482" key="FileChooserDialogImpl/0.28.1440.872@0.28.1440.872" timestamp="1603903617209" />
-    <state x="1963" y="180" width="424" height="482" key="FileChooserDialogImpl/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606441439459" />
-    <state width="1440" height="266" key="GridCell.Tab.0.bottom" timestamp="1606697615064">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state width="1390" height="275" key="GridCell.Tab.0.bottom/0.28.1440.872@0.28.1440.872" timestamp="1603818436564" />
-    <state width="1440" height="266" key="GridCell.Tab.0.bottom/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606697615064" />
-    <state width="1440" height="266" key="GridCell.Tab.0.center" timestamp="1606697615064">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state width="1390" height="275" key="GridCell.Tab.0.center/0.28.1440.872@0.28.1440.872" timestamp="1603818436563" />
-    <state width="1440" height="266" key="GridCell.Tab.0.center/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606697615064" />
-    <state width="1440" height="266" key="GridCell.Tab.0.left" timestamp="1606697615064">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state width="1390" height="275" key="GridCell.Tab.0.left/0.28.1440.872@0.28.1440.872" timestamp="1603818436562" />
-    <state width="1440" height="266" key="GridCell.Tab.0.left/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606697615064" />
-    <state width="1440" height="266" key="GridCell.Tab.0.right" timestamp="1606697615064">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state width="1390" height="275" key="GridCell.Tab.0.right/0.28.1440.872@0.28.1440.872" timestamp="1603818436563" />
-    <state width="1440" height="266" key="GridCell.Tab.0.right/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606697615064" />
-    <state x="1641" y="73" key="SettingsEditor" timestamp="1606669600700">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="201" y="99" key="SettingsEditor/0.28.1440.872@0.28.1440.872" timestamp="1603814775570" />
-    <state x="1641" y="73" key="SettingsEditor/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606669600700" />
-    <state x="1755" y="173" width="800" height="534" key="Vcs.Push.Dialog.v2" timestamp="1605398478112">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="315" y="196" width="800" height="534" key="Vcs.Push.Dialog.v2/0.28.1440.872@0.28.1440.872" timestamp="1603268654461" />
-    <state x="1755" y="173" width="800" height="534" key="Vcs.Push.Dialog.v2/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1605398478112" />
-    <state x="1938" y="376" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606346345343">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="1938" y="376" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1606346345343" />
-    <state x="1824" y="209" key="run.anything.popup" timestamp="1605398182601">
-      <screen x="1440" y="0" width="1440" height="900" />
-    </state>
-    <state x="1824" y="209" key="run.anything.popup/1440.0.1440.900/0.28.1440.872@1440.0.1440.900" timestamp="1605398182601" />
-    <state x="383" y="215" width="672" height="678" key="search.everywhere.popup" timestamp="1603757196843">
-      <screen x="0" y="28" width="1440" height="872" />
-    </state>
-    <state x="383" y="215" width="672" height="678" key="search.everywhere.popup/0.28.1440.872@0.28.1440.872" timestamp="1603757196843" />
+    <MESSAGE value="graphql" />
+    <option name="LAST_COMMIT_MESSAGE" value="graphql" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/model/project.rs</url>
-          <line>36</line>
+          <url>file://$PROJECT_DIR$/src/model/postgre/project.rs</url>
+          <line>38</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -397,13 +335,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/actor/postgres.rs</url>
-          <line>5</line>
+          <line>6</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/main.rs</url>
-          <line>3</line>
+          <line>2</line>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/model/mongo/input_project.rs</url>
+          <line>43</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/model/mongo/input_project.rs</url>
+          <line>58</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/model/postgre/plugin.rs</url>
+          <line>110</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

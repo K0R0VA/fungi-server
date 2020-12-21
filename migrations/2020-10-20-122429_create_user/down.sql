@@ -1,1 +1,1 @@
-drop table Client;
+drop table Creator;

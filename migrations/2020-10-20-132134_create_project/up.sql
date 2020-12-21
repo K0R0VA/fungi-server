@@ -1,9 +1,10 @@
 create table Project (
   id Uuid primary key,
   name varchar not null,
-  mongo_id int not null unique,
-  client_id Uuid not null,
+  creator_id Uuid not null,
   creation_data date not null,
   last_update date not null,
-  foreign key (client_id) references Client(id)
+  definition varchar(150),
+  foreign key (creator_id) references Creator(id),
+  constraint uniqueNameForClient unique (name, creator_id)
 );

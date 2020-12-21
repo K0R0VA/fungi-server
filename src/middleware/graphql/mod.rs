@@ -1,18 +1,19 @@
 mod mutation;
 mod query;
 mod schema;
+mod subscription;
 
-use crate::application::descriptor::Descriptor;
-use crate::application::database::DatabaseManager;
-use crate::middleware::graphql::schema::{create_schema, AppContext, Schema};
+use super::super::application::database::DatabaseManager;
+use super::super::middleware::graphql::schema::{create_schema, AppContext, Schema};
 
 use actix_web::{HttpResponse, get, post };
 use actix_web::web::{Json, Data, ServiceConfig, };
 use juniper::http::graphiql::graphiql_source;
 use juniper::http::GraphQLRequest;
+use super::super::application::descriptor::Descriptor;
 
 
-pub(crate) fn graph_config(config: &mut ServiceConfig) {
+pub fn graph_config(config: &mut ServiceConfig) {
     let schema = create_schema();
     config
         .data(schema)
@@ -34,6 +35,7 @@ async fn graphql(data: Json<GraphQLRequest>, schema: Data<Schema>, database: Dat
     let result = data.execute(&schema, &context).await;
     HttpResponse::Ok().json(result)
 }
+
 
 
 

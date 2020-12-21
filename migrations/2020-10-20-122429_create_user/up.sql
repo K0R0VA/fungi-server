@@ -1,6 +1,7 @@
-create table Client (
+create table Creator (
     id Uuid primary key,
     name varchar not null unique,
     email varchar not null unique,
-    password varchar not null
+    bio varchar(150),
+    password varchar not null,
 );

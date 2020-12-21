@@ -1,1 +1,1 @@
-drop table Animation;
+drop table Plugin;

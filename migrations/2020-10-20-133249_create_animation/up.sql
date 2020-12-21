@@ -1,10 +1,12 @@
-create table Animation (
+create table Plugin (
   id uuid primary key,
-  mongo_id int not null unique,
   name varchar not null,
-  like_count int not null default 0,
+  import_count int not null default 0,
   creation_data date not null,
   last_update date not null,
+  definition varchar(150),
+  public bool not null,
+  weight float not null,
   creator_id uuid not null,
-  foreign key (creator_id) references Client (id)
+  foreign key (creator_id) references Creator(id)
 );
