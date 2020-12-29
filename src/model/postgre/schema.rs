@@ -15,6 +15,7 @@ table! {
         email -> Varchar,
         bio -> Nullable<Varchar>,
         password -> Varchar,
+        hasavatar -> Bool,
     }
 }
 

@@ -7,6 +7,7 @@ use super::super::super::model::mongo::get_project::{GetProject, MongoProject};
 use juniper::{FieldError, graphql_value };
 use validator::Validate;
 use crate::model::postgre::plugin::{Plugin, GetPlugins, GetPluginInfo, GetComments, Comment};
+use crate::actor::postgres::PgActor;
 
 pub struct Query;
 

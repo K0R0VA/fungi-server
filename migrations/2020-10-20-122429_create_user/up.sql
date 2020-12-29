@@ -4,4 +4,5 @@ create table Creator (
     email varchar not null unique,
     bio varchar(150),
     password varchar not null,
+    hasAvatar boolean not null
 );

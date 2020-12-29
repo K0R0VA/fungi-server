@@ -3,9 +3,10 @@ use super::super::actor::postgres::PgActor;
 use actix::{Addr, Message, MailboxError, Handler, SyncArbiter, Actor, Context};
 use diesel::r2d2::{ConnectionManager};
 use diesel::{PgConnection, QueryResult};
-use juniper::{FieldError, graphql_value};
+use juniper::{FieldError, graphql_value, DefaultScalarValue};
 use super::super::actor::mongo::MongoActor;
 use std::fmt::Debug;
+use std::pin::Pin;
 
 
 #[derive(Clone)]
@@ -41,9 +42,9 @@ impl DatabaseManager {
         where M: Message + Send,
               M::Result: Send,
               PgActor: Handler<M>,
-              M: Message<Result = QueryResult<T>>
+              M: Message<Result = QueryResult<T>>,
     {
-        let result: Result<QueryResult<T>, MailboxError> = self.postgre.send(req).await;
+        let result = self.postgre.send(req).await;
         Self::map(result)
     }
     pub async fn mongo_send<'de, M: 'static, T: 'static, E: 'static>(&self, req : M) -> Result<T, FieldError>
@@ -63,3 +64,5 @@ impl DatabaseManager {
         }
     }
 }
+
+

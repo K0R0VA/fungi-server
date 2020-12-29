@@ -15,6 +15,7 @@ pub struct Creator {
     pub email : String,
     pub bio: Option<String>,
     pub password : String,
+    pub hasavatar: bool
 }
 
 impl Creator {
@@ -24,7 +25,8 @@ impl Creator {
             name : name.to_owned(),
             email : email.to_owned(),
             password : password.to_owned(),
-            bio: None
+            bio: None,
+            hasavatar : false
         }
     }
 }
