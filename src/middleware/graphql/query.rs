@@ -1,13 +1,12 @@
 use super::AppContext;
-use super::super::super::model::postgre::client::{SignIn, Creator};
-use super::super::super::model::postgre::project::{Project, ClientIdForProjects};
-use super::super::super::model::mongo::get_project::{GetProject, MongoProject};
+use crate::model::postgre::client::{SignIn, Creator};
+use crate::model::postgre::project::{Project, ClientIdForProjects};
+use crate::model::mongo::get_project::{GetProject, MongoProject};
 
 
 use juniper::{FieldError, graphql_value };
 use validator::Validate;
-use crate::model::postgre::plugin::{Plugin, GetPlugins, GetPluginInfo, GetComments, Comment};
-use crate::actor::postgres::PgActor;
+use crate::model::postgre::plugin::{PluginInfo, GetPlugins, GetPluginInfo, GetComments, Comment};
 
 pub struct Query;
 
@@ -15,11 +14,9 @@ type FieldResult<T> = Result<T, FieldError>;
 
 #[juniper::graphql_object(Context = AppContext)]
 impl Query {
-
     pub async fn api_version() -> &str {
         "1.0"
     }
-
     pub async fn login_client(client: SignIn, context: &AppContext) -> FieldResult<Creator> {
         match Validate::validate(&client) {
             Ok(_) => {
@@ -40,10 +37,10 @@ impl Query {
     pub async fn get_project(id: GetProject, context: &AppContext) -> FieldResult<MongoProject> {
         context.database.mongo_send(id).await
     }
-    pub async fn get_plugins(context: &AppContext) -> FieldResult<Vec<Plugin>> {
+    pub async fn get_plugins(context: &AppContext) -> FieldResult<Vec<PluginInfo>> {
         context.database.pg_send(GetPlugins).await
     }
-    pub async fn get_plugin(id: GetPluginInfo, context: &AppContext) -> FieldResult<Plugin> {
+    pub async fn get_plugin(id: GetPluginInfo, context: &AppContext) -> FieldResult<PluginInfo> {
         context.database.pg_send(id).await
     }
     pub async fn get_messages(req: GetComments, context: &AppContext) -> FieldResult<Vec<Comment>> {

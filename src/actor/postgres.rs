@@ -1,7 +1,7 @@
 use crate::model::postgre::schema::{creator, project, plugin, comment, liked, import};
 use crate::model::postgre::project::{Project, NewProject, ClientIdForProjects, SaveProject};
 use crate::model::postgre::client::{SignIn, NewUser, Creator};
-use crate::model::postgre::plugin::{NewPlugin, Plugin, DeletePlugin, EditPlugin, NewComment, Comment, Like, Liked, DisLike, GetComments, GetPlugins, GetPluginInfo, AddDependency, Import, DeleteDependency};
+use crate::model::postgre::plugin::{NewPlugin, PluginInfo, DeletePlugin, EditPlugin, NewComment, Comment, Like, Liked, DisLike, GetComments, GetPlugins, GetPluginInfo, AddDependency, Import, DeleteDependency};
 
 use actix::{Actor, SyncContext, Handler };
 use diesel::{PgConnection, QueryResult, RunQueryDsl, QueryDsl, ExpressionMethods};
@@ -88,13 +88,13 @@ impl Handler<SaveProject> for PgActor {
 }
 
 impl Handler<NewPlugin> for PgActor {
-    type Result = QueryResult<Plugin>;
+    type Result = QueryResult<PluginInfo>;
 
     fn handle(&mut self, msg: NewPlugin, _: &mut Self::Context) -> Self::Result {
         let conn : &PgConnection = &self.pool.get().unwrap();
-        let plugin = Plugin::new(msg.name, msg.creator, msg.public);
+        let plugin = PluginInfo::from(msg);
         diesel::insert_into(plugin::table)
-            .values::<Plugin>(plugin)
+            .values::<PluginInfo>(plugin)
             .get_result(conn)
     }
 }
@@ -111,7 +111,7 @@ impl Handler<DeletePlugin> for PgActor {
 }
 
 impl Handler<EditPlugin> for PgActor {
-    type Result = QueryResult<Plugin>;
+    type Result = QueryResult<PluginInfo>;
 
     fn handle(&mut self, msg: EditPlugin, _: &mut Self::Context) -> Self::Result {
         let conn : &PgConnection = &self.pool.get().unwrap();
@@ -123,23 +123,23 @@ impl Handler<EditPlugin> for PgActor {
 }
 
 impl Handler<GetPlugins> for PgActor {
-    type Result = QueryResult<Vec<Plugin>>;
+    type Result = QueryResult<Vec<PluginInfo>>;
 
     fn handle(&mut self, _: GetPlugins, _: &mut Self::Context) -> Self::Result {
         let conn : &PgConnection = &self.pool.get().unwrap();
         plugin::table
-            .load::<Plugin>(conn)
+            .load::<PluginInfo>(conn)
     }
 }
 
 impl Handler<GetPluginInfo> for PgActor {
-    type Result = QueryResult<Plugin>;
+    type Result = QueryResult<PluginInfo>;
 
     fn handle(&mut self, msg: GetPluginInfo, _: &mut Self::Context) -> Self::Result {
         let conn : &PgConnection = &self.pool.get().unwrap();
         plugin::table
             .filter(plugin::id.eq(msg.plugin_id))
-            .first::<Plugin>(conn)
+            .first::<PluginInfo>(conn)
     }
 }
 

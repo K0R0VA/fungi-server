@@ -1,23 +1,24 @@
-use super::super::actor::postgres::PgActor;
+use crate::actor::postgres::PgActor;
+use crate::actor::mongo::MongoActor;
+
 
 use actix::{Addr, Message, MailboxError, Handler, SyncArbiter, Actor, Context};
 use diesel::r2d2::{ConnectionManager};
 use diesel::{PgConnection, QueryResult};
-use juniper::{FieldError, graphql_value, DefaultScalarValue};
-use super::super::actor::mongo::MongoActor;
+use juniper::{FieldError, graphql_value};
 use std::fmt::Debug;
-use std::pin::Pin;
 
 
 #[derive(Clone)]
-pub struct DatabaseManager {
+pub struct State {
      postgre: Addr<PgActor>,
      mongo : Addr<MongoActor>,
 //// TODO:
-//  pub ws : Addr<WsActor>,
+//    repository: Addr<RepositoryActor>
+//    pub ws : Addr<WsActor>,
 ////
 }
-impl DatabaseManager {
+impl State {
     pub async fn new(postgre_address: &str, mongo_address: &str) -> Self {
         let manager = ConnectionManager::<PgConnection>::new(postgre_address);
         let pool = r2d2::Pool::builder()
@@ -26,13 +27,13 @@ impl DatabaseManager {
         let postgre = SyncArbiter::start(5,  move || {
             PgActor::new(pool.clone())
         });
-        let client = mongodb::Client::with_uri_str(mongo_address).await.unwrap();
+        let mongo_client = mongodb::Client::with_uri_str(mongo_address).await.unwrap();
         let mongo = MongoActor::create( |_: &mut Context<MongoActor>| {
             MongoActor {
-                0: client,
+                0: mongo_client,
             }
         });
-        DatabaseManager {
+        State {
             postgre,
             mongo
         }
@@ -57,7 +58,7 @@ impl DatabaseManager {
         Self::map(result)
     }
 
-    fn map<T, E: Debug>(res: Result<Result<T, E>, MailboxError>) -> Result<T, FieldError> {
+     fn map<T, E: Debug>(res: Result<Result<T, E>, MailboxError>) -> Result<T, FieldError> {
         match res {
             Ok(r) => r.map_err(|e| FieldError::new(format!("{:?}", e), graphql_value!(""))),
             Err(e) => Err(FieldError::new(format!("{:?}", e), graphql_value!("")))

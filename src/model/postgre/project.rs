@@ -32,6 +32,19 @@ impl Project {
     }
 }
 
+impl From<NewProject> for Project {
+    fn from(project: NewProject) -> Self {
+        Project {
+            id : Uuid::new_v4(),
+            name: project.name_project,
+            creator_id: project.id_client,
+            creation_data : Utc::now().date().naive_local(),
+            last_update : Utc::now().date().naive_local(),
+            definition: None
+        }
+    }
+}
+
 impl PartialEq for Project {
     fn eq(&self, other: &Self) -> bool {
         self.id == other.id

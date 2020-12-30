@@ -15,7 +15,7 @@ use actix_web::{App, HttpServer, Result, web, guard, HttpResponse};
 use actix_files as fs;
 use application::descriptor::Descriptor;
 use application::config::Configurator;
-use application::database::DatabaseManager;
+use application::database::State;
 use middleware::graphql::graph_config;
 
 
@@ -26,7 +26,7 @@ async fn index() -> Result<fs::NamedFile> {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let config = Configurator::default();
-    let database = DatabaseManager::new(config.postgre(), config.mongo()).await;
+    let database = State::new(config.postgre(), config.mongo()).await;
     let descriptor = Descriptor::new(config.secret().to_string());
     HttpServer::new( move || App::new()
                                 .data(database.clone())

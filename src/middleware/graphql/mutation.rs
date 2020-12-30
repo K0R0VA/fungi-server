@@ -1,12 +1,12 @@
 use super::AppContext;
-use super::super::super::model::postgre::client::{Creator, InputNewUser, NewUser};
-use super::super::super::model::postgre::project::{NewProject, Project, SaveProject as IdSavedProject};
-use super::super::super::model::mongo::input_project::{NewProject as MongoIdProject, SaveProject};
+use crate::model::postgre::client::{Creator, InputNewUser, NewUser};
+use crate::model::postgre::project::{NewProject, Project, SaveProject as IdSavedProject};
+use crate::model::mongo::input_project::{NewProject as MongoIdProject, SaveProject};
+use crate::model::postgre::Status;
+use crate::model::postgre::plugin::{NewPlugin, PluginInfo, NewComment, Comment};
 
 use juniper::{ FieldError, graphql_value};
-use validator::{Validate};
-use super::super::super::model::postgre::Status;
-use crate::model::postgre::plugin::{NewPlugin, Plugin, NewComment, Comment};
+use validator::{Validate, Validator};
 
 pub struct Mutation;
 
@@ -14,6 +14,9 @@ type FieldResult<T> = Result<T, FieldError>;
 
 #[juniper::graphql_object(Context = AppContext)]
 impl Mutation {
+    pub fn foo() -> &str {
+        ""
+    }
     pub async fn create_client(input: InputNewUser, context: &AppContext) -> FieldResult<Creator> {
         match Validate::validate(&input) {
             Ok(_) => {
@@ -42,13 +45,12 @@ impl Mutation {
         context.database.mongo_send(project).await.ok();
         context.database.pg_send(IdSavedProject {0 : id}).await.map(|code| Status { inner: code as i32} )
     }
-    pub async fn add_plugin(plugin: NewPlugin, context: &AppContext) -> FieldResult<Plugin> {
+    pub async fn add_plugin(plugin: NewPlugin, context: &AppContext) -> FieldResult<PluginInfo> {
         context.database.pg_send(plugin).await
     }
     pub async fn add_comment(comment: NewComment, context: &AppContext) -> FieldResult<Comment> {
         context.database.pg_send(comment).await
     }
-
 }
 
 async fn map(result: Result<Project, FieldError>, context: &AppContext) -> FieldResult<Project> {

@@ -14,6 +14,7 @@ pub struct Creator {
     pub name : String,
     pub email : String,
     pub bio: Option<String>,
+    #[graphql(skip)]
     pub password : String,
     pub hasavatar: bool
 }
@@ -25,6 +26,19 @@ impl Creator {
             name : name.to_owned(),
             email : email.to_owned(),
             password : password.to_owned(),
+            bio: None,
+            hasavatar : false
+        }
+    }
+}
+
+impl From<InputNewUser> for Creator {
+    fn from(user: InputNewUser) -> Self {
+        Creator {
+            id : Uuid::new_v4(),
+            name : user.username,
+            email : user.email,
+            password : user.password,
             bio: None,
             hasavatar : false
         }

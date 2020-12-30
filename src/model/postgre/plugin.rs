@@ -9,7 +9,7 @@ use actix::Message;
 
 #[derive(Debug, Clone, Serialize, Deserialize, Queryable, Insertable, GraphQLObject)]
 #[table_name="plugin"]
-pub struct Plugin {
+pub struct PluginInfo {
     pub id : Uuid,
     pub name : String,
     pub import_count: i32,
@@ -21,14 +21,14 @@ pub struct Plugin {
     pub creator_id : Uuid,
 }
 
-impl Plugin {
-    pub fn new(name : String, creator_id : Uuid, public: bool) -> Self {
-        Plugin {
+impl From<NewPlugin> for PluginInfo {
+    fn from(plugin: NewPlugin) -> Self {
+        PluginInfo {
             id : Uuid::new_v4(),
-            name,
-            public,
+            name: plugin.name,
+            public: plugin.public,
             import_count: 0,
-            creator_id,
+            creator_id: plugin.creator,
             creation_data : Utc::now().date().naive_local(),
             last_update : Utc::now().date().naive_local(),
             definition: None,
@@ -45,7 +45,7 @@ pub struct NewPlugin {
 }
 
 impl Message for NewPlugin {
-    type Result = QueryResult<Plugin>;
+    type Result = QueryResult<PluginInfo>;
 }
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
@@ -66,13 +66,13 @@ pub struct EditPlugin {
 }
 
 impl Message for EditPlugin {
-    type Result = QueryResult<Plugin>;
+    type Result = QueryResult<PluginInfo>;
 }
 
 pub struct GetPlugins;
 
 impl Message for GetPlugins {
-    type Result = QueryResult<Vec<Plugin>>;
+    type Result = QueryResult<Vec<PluginInfo>>;
 }
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
@@ -81,7 +81,7 @@ pub struct GetPluginInfo {
 }
 
 impl Message for GetPluginInfo {
-    type Result = QueryResult<Plugin>;
+    type Result = QueryResult<PluginInfo>;
 }
 
 
@@ -107,7 +107,7 @@ impl Message for NewComment {
     type Result = QueryResult<Comment>;
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Queryable, Insertable, GraphQLObject)]
+#[derive(Debug, Clone, Serialize, Deserialize, Queryable, Insertable)]
 #[table_name="liked"]
 pub struct Liked {
     pub id: Uuid,
@@ -144,7 +144,7 @@ impl Message for GetComments {
     type Result = QueryResult<Vec<Comment>>;
 }
 
-#[derive(Serialize, Deserialize, Queryable, Insertable, GraphQLObject)]
+#[derive(Serialize, Deserialize, Queryable, Insertable)]
 #[table_name="import"]
 pub struct Import {
     pub id: Uuid,

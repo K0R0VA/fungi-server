@@ -1,4 +1,4 @@
-use super::super::model::mongo::input_project::{NewProject, MongoProject as InputMongoProject, SaveProject};
+use super::super::model::mongo::input_project::{NewProject, InputMongoProject as InputMongoProject, SaveProject};
 use super::super::model::mongo::get_project::{MongoProject as GetMongoProject, GetProject};
 
 use mongodb::{Client};

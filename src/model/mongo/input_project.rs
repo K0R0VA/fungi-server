@@ -7,16 +7,16 @@ use mongodb::error::{Error};
 
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
-pub struct MongoProject {
-    slides: Vec<Slide>,
-    dependency: Vec<Plugin>,
-    styles: Vec<Style>,
-    relationship: Vec<Effect>
+pub struct InputMongoProject {
+    slides: Vec<InputSlide>,
+    dependency: Vec<InputPlugin>,
+    styles: Vec<InputStyle>,
+    relationship: Vec<InputEffect>
 }
 
-impl Default for MongoProject {
+impl Default for InputMongoProject {
      fn default() -> Self {
-        MongoProject {
+        InputMongoProject {
             slides: Vec::with_capacity(0),
             dependency: Vec::with_capacity(0),
             styles: Vec::with_capacity(0),
@@ -26,60 +26,60 @@ impl Default for MongoProject {
 }
 
 #[derive(Deserialize, Serialize,GraphQLInputObject)]
-struct Plugin {
+struct InputPlugin {
     path: String,
-    args: Args,
+    args: InputArgs,
 }
 #[derive(Deserialize, Serialize,GraphQLInputObject)]
-struct Args {
+struct InputArgs {
     // Hashmap of (value: type of value)
-    targets: Vec<Target>
+    targets: Vec<InputTarget>
 }
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
-struct Effect {
+struct InputEffect {
     name: String,
-    targets: Vec<Target>
+    targets: Vec<InputTarget>
 }
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
-struct Target {
+struct InputTarget {
     element_id: String,
     type_element: String
 }
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
-struct Style {
+struct InputStyle {
     path: String
 }
 
 #[derive(Deserialize, Serialize,  GraphQLInputObject)]
-struct Slide {
+struct InputSlide {
     id: i32,
     class: String,
-    layers: Vec<Layer>
+    layers: Vec<InputLayer>
 }
 
 #[derive(Deserialize, Serialize,  GraphQLInputObject)]
-struct Layer {
+struct InputLayer {
     id: String,
     class: String,
-    elements: Vec<Element>
+    elements: Vec<InputElement>
 }
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
-struct Element {
+struct InputElement {
     id: String,
     class: String,
     content: Option<String>,
     type_element: String,
-    position: Point,
+    position: InputPoint,
     url: Option<String>
 }
 
 
 #[derive(Deserialize, Serialize, GraphQLInputObject)]
-struct Point {
+struct InputPoint {
     x: i32,
     y: i32
 }
@@ -94,7 +94,7 @@ impl Message for NewProject {
 #[derive(GraphQLInputObject)]
 pub(crate) struct SaveProject{
     pub id: Uuid,
-    pub inner: MongoProject
+    pub inner: InputMongoProject
 }
 
 impl Message for SaveProject {

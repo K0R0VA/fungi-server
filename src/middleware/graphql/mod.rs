@@ -3,7 +3,7 @@ mod query;
 mod schema;
 mod subscription;
 
-use super::super::application::database::DatabaseManager;
+use super::super::application::database::State;
 use super::super::middleware::graphql::schema::{create_schema, AppContext, Schema};
 
 use actix_web::{HttpResponse, get, post };
@@ -30,7 +30,7 @@ async fn graphiql() -> HttpResponse {
 }
 
 #[post("/graphql")]
-async fn graphql(data: Json<GraphQLRequest>, schema: Data<Schema>, database: Data<DatabaseManager>, descriptor: Data<Descriptor>) -> HttpResponse {
+async fn graphql(data: Json<GraphQLRequest>, schema: Data<Schema>, database: Data<State>, descriptor: Data<Descriptor>) -> HttpResponse {
     let context = AppContext::new(database, descriptor);
     let result = data.execute(&schema, &context).await;
     HttpResponse::Ok().json(result)
